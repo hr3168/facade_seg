@@ -4,7 +4,7 @@ import pandas as pd
 
 print("test22")
 
-model = vgg_unet(n_classes=5 ,  input_height=416, input_width=608  )
+model = vgg_unet(n_classes=12 ,  input_height=416, input_width=608  )
 
 model.train(
     train_images =  "./content/images_prepped_train/",
@@ -12,7 +12,7 @@ model.train(
     checkpoints_path = "./tmp/vgg_unet_2", 
     steps_per_epoch=2048,
     auto_resume_checkpoint=True,
-    epochs=10
+    epochs=15
 )
 
 out = model.predict_segmentation(
