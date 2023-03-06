@@ -1,7 +1,33 @@
 import json
 import pdb
+import os
 from PIL import Image
+import shutil
 import numpy as np
+from tqdm import tqdm
+'''
+window -- window
+Molding -- floor
+shop -- shop
+Balcony -- railing
+facade -- wall
+facade -- mountainwall
+pillar -- column
+pillar -- base
+'''
+
+label2num = {
+    'window': 3,
+    'floor': 10,
+    'shop': 9,
+    'railing': 7,
+    'wall': 2,
+    'mountainwall': 13,
+    'column': 11,
+    'base':14
+
+}
+
 
 def json2png(png_file_name, json_file_name, out_file_name):
     # 读取json文件
@@ -12,7 +38,7 @@ def json2png(png_file_name, json_file_name, out_file_name):
     im_frame = Image.open(png_file_name)
     
     # 根据png的尺寸创建画布，默认label为0
-    canvas = np.zeros(im_frame.size)
+    canvas = np.ones(im_frame.size)
     # 遍历标注区域
     for label in json_data:
         # label的keys:['content', 'rectMask', 'labels', 'labelLocation', 'contentType']
@@ -23,13 +49,28 @@ def json2png(png_file_name, json_file_name, out_file_name):
         height = int(label['rectMask']['height'])
         # pdb.set_trace()
         # 根据起点、长宽信息对区域做打标，默认打标为100，后面可以改
+        label_tag = label['labels']['labelName']
+        # pdb.set_trace()
         for i in range(width):
             for j in range(height):
-                canvas[x_min + i][y_min + j] = 100
+                canvas[x_min + i][y_min + j] = label2num[label_tag]
     
     # np array和Image读取的长宽定义不一样，做个转置（试出来的）
     im = Image.fromarray(canvas.T).convert("L")
     im.save('{}.png'.format(out_file_name))
     
 # 主函数，调用json2png函数
-json2png('Snipaste_2023-02-21_12-13-00.png', 'Snipaste_2023-02-21_12-13-00.json', 'test')
+# json2png('Snipaste_2023-02-21_12-13-00.png', 'Snipaste_2023-02-21_12-13-00.json', 'test')
+g = os.walk("D:\Code\\facade_seg-main\\04_Code\\03_Database")
+
+new_path_image = "D:\Code\\facade_seg-main\\04_Code\qilou_dataset\\image"
+new_path_anote = "D:\Code\\facade_seg-main\\04_Code\qilou_dataset\\anote"
+
+for path, dir_list, file_list in g:
+    for file_name in tqdm(file_list):
+        file_path = os.path.join(path,file_name)
+        # pdb.set_trace()
+        if file_name[-4:] == 'json':
+            json2png(file_path[:-4] + 'png', file_path, os.path.join(new_path_anote, file_name[:-5]))
+            shutil.copy(file_path[:-4] + 'png', os.path.join(new_path_image, file_name[:-4] + 'jpg'))
+            
