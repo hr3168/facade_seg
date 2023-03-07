@@ -31,5 +31,6 @@ out = arcade_seg.predict_segmentation(
     out_fname="./qilou_seg/out_1.png"
 )
 
-
+'''
  python -m keras_segmentation predict --checkpoints_path="D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\qilou_seg\vgg_unet_2" --input_path="D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\content\T_001.jpg" --output_path="D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\qilou_seg\T001.png"
+ '''
