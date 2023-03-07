@@ -37,8 +37,9 @@ def json2png(png_file_name, json_file_name, out_file_name):
     # 获取png格式
     im_frame = Image.open(png_file_name)
     
-    # 根据png的尺寸创建画布，默认label为0
+    # 根据png的尺寸创建画布，默认label为1
     canvas = np.ones(im_frame.size)
+    pdb.set_trace()
     # 遍历标注区域
     for label in json_data:
         # label的keys:['content', 'rectMask', 'labels', 'labelLocation', 'contentType']
@@ -61,10 +62,10 @@ def json2png(png_file_name, json_file_name, out_file_name):
     
 # 主函数，调用json2png函数
 # json2png('Snipaste_2023-02-21_12-13-00.png', 'Snipaste_2023-02-21_12-13-00.json', 'test')
-g = os.walk("D:\Code\\facade_seg-main\\04_Code\\03_Database")
+g = os.walk("D:\\HKUST\\00_Work\\04_Facade\\facade_seg\\04_Code\\03_Database")
 
-new_path_image = "D:\Code\\facade_seg-main\\04_Code\qilou_dataset\\image"
-new_path_anote = "D:\Code\\facade_seg-main\\04_Code\qilou_dataset\\anote"
+new_path_image = "D:\HKUST\\00_Work\\04_Facade\\facade_seg\\04_Code\qilou_dataset\\image"
+new_path_anote = "D:\HKUST\\00_Work\\04_Facade\\facade_seg\\04_Code\qilou_dataset\\anote"
 
 for path, dir_list, file_list in g:
     for file_name in tqdm(file_list):

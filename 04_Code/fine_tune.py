@@ -11,7 +11,7 @@ arcade_seg = vgg_unet(n_classes=15 ,  input_height=416, input_width=608  )
 
 # pdb.set_trace()
 
-model_origin = model_from_checkpoint_path( "D:\Code\\facade_seg-main\\04_Code\\tmp\\origin\\vgg_unet_2" )
+model_origin = model_from_checkpoint_path( "D:\HKUST\\00_Work\\04_Facade\\facade_seg\\04_Code\\tmp\\vgg_unet_2" )
 
 transfer_weights( model_origin , arcade_seg  ) 
 
@@ -30,3 +30,6 @@ out = arcade_seg.predict_segmentation(
     inp="./qilou_dataset/image/Snipaste_2023-02-21_12-13-00.png",
     out_fname="./qilou_seg/out_1.png"
 )
+
+
+ python -m keras_segmentation predict --checkpoints_path="D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\qilou_seg\vgg_unet_2" --input_path="D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\content\T_001.jpg" --output_path="D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\qilou_seg\T001.png"
