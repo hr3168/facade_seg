@@ -1,4 +1,4 @@
-from keras_segmentation.models.unet import resnet50_pspnet
+from keras_segmentation.models.pspnet import resnet50_pspnet
 import numpy as np 
 import pandas as pd
 import os
@@ -7,7 +7,7 @@ from keras_segmentation.predict import model_from_checkpoint_path
 from keras_segmentation.models.unet import unet_mini
 from keras_segmentation.models.model_utils import transfer_weights
 
-arcade_seg = resnet50_pspnet(n_classes=15 ,  input_height=416, input_width=608  )
+arcade_seg = resnet50_pspnet(n_classes=15 ,  input_height=576, input_width=768  )
 
 # pdb.set_trace()
 
@@ -21,7 +21,7 @@ arcade_seg.train(
     train_images =  "./qilou_dataset/image/",
     train_annotations = "./qilou_dataset/anote/",
     checkpoints_path = "./qilou_seg/resnet50_pspnet_1" , 
-    steps_per_epoch=2048,
+    steps_per_epoch=1024,
     auto_resume_checkpoint=True,
     epochs=15
 )

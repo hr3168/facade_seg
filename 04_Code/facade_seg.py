@@ -4,15 +4,15 @@ import pandas as pd
 
 print("test22")
 
-model = resnet50_pspnet(n_classes=12 ,  input_height=384, input_width=576  )
+model = resnet50_pspnet(n_classes=12 ,  input_height=576, input_width=768  )
 
 model.train(
     train_images =  "./content/images_prepped_train/",
     train_annotations = "./content/label/",
     checkpoints_path = "./tmp/resnet50_pspnet_1", 
-    steps_per_epoch=2048,
+    steps_per_epoch=1024,
     auto_resume_checkpoint=True,
-    epochs=15
+    epochs=50
 )
 
 out = model.predict_segmentation(
