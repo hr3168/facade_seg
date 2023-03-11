@@ -1,15 +1,15 @@
-from keras_segmentation.models.unet import vgg_unet
+from keras_segmentation.models.pspnet import resnet50_pspnet
 import numpy as np 
 import pandas as pd
 
 print("test22")
 
-model = vgg_unet(n_classes=12 ,  input_height=416, input_width=608  )
+model = resnet50_pspnet(n_classes=12 ,  input_height=384, input_width=576  )
 
 model.train(
     train_images =  "./content/images_prepped_train/",
     train_annotations = "./content/label/",
-    checkpoints_path = "./tmp/vgg_unet_2", 
+    checkpoints_path = "./tmp/resnet50_pspnet_1", 
     steps_per_epoch=2048,
     auto_resume_checkpoint=True,
     epochs=15
