@@ -32,7 +32,7 @@ def img_aug(file_dir, process='fliph'):
         for file_name in tqdm(file_list):
             file_path = os.path.join(path,file_name)
             # 防止有的图片是RGBA的形式，就是加了一个透明度维度
-            im_frame = Image.open(file_path).convert('RGB')
+            im_frame = Image.open(file_path).convert('L')
             # 将图片转为np.ndarray
             im_array = np.array(im_frame)
             # 调用增强函数
@@ -49,7 +49,7 @@ def img_aug(file_dir, process='fliph'):
 
 
 if __name__ == '__main__':
-    img_aug('qilou_dataset\image', 'fliph')
-    img_aug('qilou_dataset\\anote', 'fliph')
+    img_aug('qilou_dataset\image2', 'fliph')
+    img_aug('qilou_dataset\\anote2', 'fliph')
     # img_aug('qilou_dataset\image', 'blur')
     # img_aug('qilou_dataset\\anote', 'blur')

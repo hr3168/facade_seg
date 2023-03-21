@@ -48,14 +48,14 @@ def json2png(png_file_name, json_file_name, out_file_name):
         width = int(label['rectMask']['width'])
         height = int(label['rectMask']['height'])
         # pdb.set_trace()
-        # 根据起点、长宽信息对区域做打标，默认打标为100，后面可以改
+        # 根据起点、长宽信息对区域做打标，默认打标为100，可改
         label_tag = label['labels']['labelName']
         # pdb.set_trace()
         for i in range(width):
             for j in range(height):
                 canvas[x_min + i][y_min + j] = label2num[label_tag]
     
-    # np array和Image读取的长宽定义不一样，做个转置（试出来的）
+    # np array和Image读取的长宽定义不一样，做个转置
     im = Image.fromarray(canvas.T).convert("L")
     im.save('{}.png'.format(out_file_name))
     
