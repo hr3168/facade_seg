@@ -49,7 +49,7 @@ def json2png(png_file_name, json_file_name, out_file_name):
         height = int(label['rectMask']['height'])
         # pdb.set_trace()
         # 根据起点、长宽信息对区域做打标，默认打标为100，可改
-        label_tag = label['labels']['labelName']
+        label_tag = label['shapes']['label']
         # pdb.set_trace()
         for i in range(width):
             for j in range(height):
