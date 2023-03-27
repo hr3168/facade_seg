@@ -51,7 +51,6 @@ def json2png(png_file_name, json_file_name, out_file_name):
         points = label["points"]
         # canvas = cv2.fillConvexPoly(canvas, points, label2num[label_tag])
         points = np.array(points, dtype=np.int32) # 将 "points" 转换为numpy数组类型
-        # print("label2num[label_tag]:", label2num[label_tag])
         canvas = cv2.fillConvexPoly(canvas, [points], label2num[label_tag])
 
 
