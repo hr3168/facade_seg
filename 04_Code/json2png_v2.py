@@ -42,36 +42,31 @@ def json2png(png_file_name, json_file_name, out_file_name):
     # 根据png的尺寸创建画布，默认label为1
     # canvas = np.ones(im_frame.size)
     canvas = np.ones((img.shape[0], img.shape[1]))
+    print("canvas shape:", canvas.shape)        
+
     pdb.set_trace()
     # 遍历标注区域
     for label in json_data['shapes']:
-        # label的keys:['content', 'rectMask', 'labels', 'labelLocation', 'contentType']
-        # 获取标注区域的起点与长宽，由于json文件的区域是float类型，但是下标只支持int类型，所以做类型转化（会影响精度）
-        # x_min = int(label['rectMask']['xMin'])
-        # y_min = int(label['rectMask']['yMin'])
-        # width = int(label['rectMask']['width'])
-        # height = int(label['rectMask']['height'])
         label_tag = label["label"]
         points = label["points"]
-        canvas = cv2.fillConvexPoly(canvas, points, label2num[label_tag])
-        # pdb.set_trace()
-        # 根据起点、长宽信息对区域做打标，默认打标为100，可改
-        # label_tag = label['shapes']['label']
-        # # pdb.set_trace()
-        # for i in range(width):
-        #     for j in range(height):
-        #         canvas[x_min + i][y_min + j] = label2num[label_tag]
-    
+        # canvas = cv2.fillConvexPoly(canvas, points, label2num[label_tag])
+        points = np.array(points, dtype=np.int32) # 将 "points" 转换为numpy数组类型
+        # print("label2num[label_tag]:", label2num[label_tag])
+        canvas = cv2.fillConvexPoly(canvas, [points], label2num[label_tag])
+
+
+        
+
     # np array和Image读取的长宽定义不一样，做个转置
     im = Image.fromarray(canvas.T).convert("L")
     im.save('{}.png'.format(out_file_name))
     
 # 主函数，调用json2png函数, give a test
-json2png('Snipaste_2023-02-21_12-13-00.png', 'Snipaste_2023-02-21_12-13-00.json', 'test')
+json2png('Snipaste_2023-02-21_12-59-54.png', 'Snipaste_2023-02-21_12-59-54.json', 'test')
 # g = os.walk("D:\\HKUST\\00_Work\\04_Facade\\03_Database\\test")
 
-# new_path_image = "D:\\HKUST\\00_Work\\04_Facade\\03_Database\\test"
-# new_path_anote = "D:\\HKUST\\00_Work\\04_Facade\\03_Database\\test\\a"
+# new_path_image = "D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\qilou_dataset\image2"
+# new_path_anote = "D:\HKUST\00_Work\04_Facade\facade_seg\04_Code\qilou_dataset\anote2"
 
 # for path, dir_list, file_list in g:
 #     for file_name in tqdm(file_list):
