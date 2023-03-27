@@ -6,7 +6,7 @@ import shutil
 import numpy as np
 from tqdm import tqdm
 import cv2 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 '''
 window -- window
 Molding -- floor
@@ -43,15 +43,14 @@ def json2png(png_file_name, json_file_name, out_file_name):
     # canvas = np.ones(im_frame.size)
     canvas = np.ones((img.shape[0], img.shape[1]))
     print("canvas shape:", canvas.shape)        
-
-    pdb.set_trace()
     # 遍历标注区域
     for label in json_data['shapes']:
         label_tag = label["label"]
         points = label["points"]
         # canvas = cv2.fillConvexPoly(canvas, points, label2num[label_tag])
         points = np.array(points, dtype=np.int32) # 将 "points" 转换为numpy数组类型
-        canvas = cv2.fillConvexPoly(canvas, [points], label2num[label_tag])
+        # pdb.set_trace()
+        canvas = cv2.fillConvexPoly(canvas, points, label2num[label_tag])
 
 
         
