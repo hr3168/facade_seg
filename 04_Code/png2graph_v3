@@ -1,0 +1,60 @@
+import json
+import pdb
+import os
+from PIL import Image
+import shutil
+import numpy as np
+import cv2 as cv
+from tqdm import tqdm
+from collections import Counter
+import sys, threading
+
+color_dict = {
+    'background': (207, 248, 132),
+    'shop': (31, 133, 226),
+    'column': (170, 252, 0),
+    'wall': (183, 244, 155),
+    'montainwall': (122, 113, 97),
+    'railing': (222, 181, 51),
+    'floor': (204, 47, 7),
+    'window': (144, 71, 111),
+    'base': (46, 229, 72)
+}
+
+# def align_color()
+
+def check_color(im_array):
+    n, m = im_array.shape[0], im_array.shape[1]
+    lst = []
+    for i in range(n):
+        for j in range(m):
+            lst.append((im_array[i][j][0],im_array[i][j][1],im_array[i][j][2]))
+    counter = Counter(lst)
+    pdb.set_trace()
+
+
+def png2graph(img_path):
+    im_frame = Image.open(img_path)
+    im_array = np.array(im_frame)
+    check_color(im_array)
+    pdb.set_trace()
+
+if __name__ == '__main__':
+    # file_dir = 'D:\Code\\facade_seg-main\\04_Code\\tmp'
+    # new_path = 'D:\Code\\facade_seg-main\\04_Code\\tmp_json'
+    img_path = 'pspnet_2_T006.png'
+    res = png2graph(img_path)
+
+'''
+背景色：(207, 248, 132)：110151, 
+shop：(31, 133, 226)：102469, 
+column: (170, 252, 0): 81109
+wall: (183, 244, 155): 59636,
+xx6: (222, 181, 51): 53506,
+montainwall: (122, 113, 97): 39360
+floor: (204, 47, 7): 34231
+window: (144, 71, 111): 16955
+base: (46, 229, 72): 8046
+column: (183, 251, 46): 498
+背景色：(197, 249, 95): 491
+'''
